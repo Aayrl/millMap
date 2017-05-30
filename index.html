@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Mill Map</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+
+	<style>
+	.sactive {
+		color:#00af23;
+	}
+	.sready {
+		color:#ffb200;
+	}
+	.sdead {
+		color:#af0014;
+	}
+	</style>
+	
+	
+	<script>
+	function getSpawnData(spawnID,spawn) {
+		var d = new Date();
+		var time = d.getMinutes();
+		var result = "";
+		var timeleft = "";
+		
+		if (spawn < 30) {
+			if (((time - spawn) >= 0) && ((time - spawn) < 30)) {
+				result = "<span class='sactive'>SPAWN IS ACTIVE</span>";
+				timeleft = (30-(time-spawn)) + " minutes left";
+			} else {
+				if (time < 30) {
+					if (Math.abs(time - spawn) < 5) {
+						result = "<span class='sready'>SPAWNING SOON!</span>";
+					} else {
+						result = "<span class='sdead'>INACTIVE</span>";
+					}
+				} else {
+					if (Math.abs(time - spawn) >= 56) {
+						result = "<span class='sready'>SPAWNING SOON!</span>";
+					} else {
+						result = "<span class='sdead'>INACTIVE</span>";
+					}
+				}
+			}
+		} else {
+			if (time >= 30) {
+				if ((time-spawn)>=0 && (time-spawn)<30) {
+					result = "<span class='sactive'>SPAWN IS ACTIVE</span>";
+					timeleft = (30-(time-spawn)) + " minutes left";
+				} else {
+					if (Math.abs(time - spawn) < 5) {
+						result = "<span class='sready'>SPAWNING SOON!</span>";
+					} else {
+						result = "<span class='sdead'>INACTIVE</span>";
+					}
+				}
+			} else {
+				if (((spawn-30)-time) >= 0) {
+					result = "<span class='sactive'>SPAWN IS ACTIVE</span>";
+					timeleft = (spawn-30-time) + " minutes left";
+				} else {
+					if (Math.abs((spawn-30)-time) >= 26) {
+						result = "<span class='sready'>SPAWNING SOON!</span>";
+					} else {
+						result = "<span class='sdead'>INACTIVE</span>";
+					}
+				}
+			}
+		}
+		return result + " <br /> " + timeleft;
+	}
+
+	function updateSpawnTimers() {
+		$("#s1").html(getSpawnData("#s1",45));
+		$("#s2").html(getSpawnData("#s2",48));
+		$("#s3").html(getSpawnData("#s3",52));
+		$("#s4").html(getSpawnData("#s4",52));
+		$("#s5").html(getSpawnData("#s5",57));
+		$("#s6").html(getSpawnData("#s6",59));
+		$("#s7").html(getSpawnData("#s7",1));
+		$("#s8").html(getSpawnData("#s8",20));
+		$("#s9").html(getSpawnData("#s9",22));
+		$("#s10").html(getSpawnData("#s10",22));
+		$("#s11").html(getSpawnData("#s11",55));
+		$("#s12").html(getSpawnData("#s12",48));
+		$("#s13").html(getSpawnData("#s13",32));
+		$("#s14").html(getSpawnData("#s14",6));
+		$("#s15").html(getSpawnData("#s15",56));
+		$("#s16").html(getSpawnData("#s16",15));
+		$("#s17").html(getSpawnData("#s17",13));
+		$("#s18").html(getSpawnData("#s18",17));
+		$("#s19").html(getSpawnData("#s19",34));
+		$("#s20").html(getSpawnData("#s20",52));
+		setTimeout(updateSpawnTimers, 5000);
+	}
+
+	$(document).ready(function(){
+		updateSpawnTimers();
+	});
+	</script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>Mill Map</h1>
+  <p>Mapping Pokemon Go Spawn Points for the Champlain Mill in Winooski, VT.</p> 
+</div>
+  
+<div class="container">
+	<div class="row" id="main">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Spawn Point</th>
+					<th>Spawn Minute Mark</th>
+					<th>Current Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>S1</td>
+					<td>:45</td>
+					<td><div id="s1"></div></td>
+				</tr>
+				<tr>
+					<td>S2</td>
+					<td>:48</td>
+					<td><div id="s2"></div></td>
+				</tr>
+				<tr>
+					<td>S3</td>
+					<td>:52</td>
+					<td><div id="s3"></div></td>
+				</tr>
+				<tr>
+					<td>S4</td>
+					<td>:52</td>
+					<td><div id="s4"></div></td>
+				</tr>
+				<tr>
+					<td>S5</td>
+					<td>:57</td>
+					<td><div id="s5"></div></td>
+				</tr>
+				<tr>
+					<td>S6</td>
+					<td>:59</td>
+					<td><div id="s6"></div></td>
+				</tr>
+				<tr>
+					<td>S7</td>
+					<td>:01</td>
+					<td><div id="s7"></div></td>
+				</tr>
+				<tr>
+					<td>S8</td>
+					<td>:20</td>
+					<td><div id="s8"></div></td>
+				</tr>
+				<tr>
+					<td>S9</td>
+					<td>:22</td>
+					<td><div id="s9"></div></td>
+				</tr>
+				<tr>
+					<td>S10</td>
+					<td>:22</td>
+					<td><div id="s10"></div></td>
+				</tr>
+				<tr>
+					<td>S11</td>
+					<td>:55</td>
+					<td><div id="s11"></div></td>
+				</tr>
+				<tr>
+					<td>S12</td>
+					<td>:48</td>
+					<td><div id="s12"></div></td>
+				</tr>
+				<tr>
+					<td>S13</td>
+					<td>:32</td>
+					<td><div id="s13"></div></td>
+				</tr>
+				<tr>
+					<td>S14</td>
+					<td>:06</td>
+					<td><div id="s14"></div></td>
+				</tr>
+				<tr>
+					<td>S15</td>
+					<td>:56</td>
+					<td><div id="s15"></div></td>
+				</tr>
+				<tr>
+					<td>S16</td>
+					<td>:15</td>
+					<td><div id="s16"></div></td>
+				</tr>
+				<tr>
+					<td>S17</td>
+					<td>:13</td>
+					<td><div id="s17"></div></td>
+				</tr>
+				<tr>
+					<td>S18</td>
+					<td>:17</td>
+					<td><div id="s18"></div></td>
+				</tr>
+				<tr>
+					<td>S19</td>
+					<td>:34</td>
+					<td><div id="s19"></div></td>
+				</tr>
+				<tr>
+					<td>S20</td>
+					<td>:52</td>
+					<td><div id="s20"></div></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</body>
+</html>
