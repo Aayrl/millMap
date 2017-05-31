@@ -118,7 +118,7 @@
 			google.charts.setOnLoadCallback(drawChart);
 
 			function drawChart() {
-				var queryString = encodeURIComponent('select count(B) group by B');
+				var queryString = encodeURIComponent('select B, count(B) group by B');
 
 				var query = new google.visualization.Query(
 					'https://docs.google.com/spreadsheets/d/1bvvbsOUUhcY4ICDN1-cJb3fdD5cakGIfzxTZT7gXMzM/gviz/tq?gid=954448862&headers=1&tq=' + queryString);
