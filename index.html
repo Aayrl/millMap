@@ -26,30 +26,7 @@
 	
 	<script>
 	
-	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(drawChart);
-	
 	var chart;
-
-	function drawChart(sscol = "A") {
-		var queryString = encodeURIComponent('select ' + sscol + ', count(' + sscol + ') group by ' + sscol);
-
-		var query = new google.visualization.Query(
-			'https://docs.google.com/spreadsheets/d/1bvvbsOUUhcY4ICDN1-cJb3fdD5cakGIfzxTZT7gXMzM/gviz/tq?gid=954448862&headers=1&tq=' + queryString);
-		query.send(handleQueryResponse);
-	}
-
-	function handleQueryResponse(response) {
-		if (response.isError()) {
-			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-			return;
-		}
-
-		var data = response.getDataTable();
-		chart = new google.visualization.PieChart(document.getElementById('graph-container'));
-		chart.draw(data, { height: 400 });
-	}
-	
 	
 	function getSpawnData(spawnID,spawn) {
 		var d = new Date();
@@ -132,13 +109,37 @@
 		updateSpawnTimers();
 		
 		$(".spawnGraph").on("click", function() {
-			$('#graph-container').html();
 			id = 0;
 			id = $(this).attr('data-spawnPoint');
 			sscol = "A";
 			sscol = $(this).attr('data-sscol');
 			
-			drawChart(sscol);
+			
+			var data;
+			
+			google.charts.load('current', {'packages':['corechart']});
+			
+			google.charts.setOnLoadCallback(drawChart);
+
+			function drawChart() {
+				var queryString = encodeURIComponent('select ' + sscol + ', count(' + sscol + ') group by ' + sscol);
+
+				var query = new google.visualization.Query(
+					'https://docs.google.com/spreadsheets/d/1bvvbsOUUhcY4ICDN1-cJb3fdD5cakGIfzxTZT7gXMzM/gviz/tq?gid=954448862&headers=1&tq=' + queryString);
+				query.send(handleQueryResponse);
+			}
+
+			function handleQueryResponse(response) {
+				if (response.isError()) {
+					alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+					return;
+				}
+
+				var data = response.getDataTable();
+				chart = new google.visualization.PieChart(document.getElementById('graph-container'));
+				chart.draw(data, { height: 400 });
+			}
+
 			
 			$('#graph-title').html("Spawn Statistics for "+id);
 			$('#graphy').modal('show');
