@@ -141,7 +141,7 @@
 			$('#graph-title').html("Spawn Statistics for "+id);
 			$('#graphy').modal('show');
 			
-			drawChart(sscol);
+			setTimeout(drawChart(sscol),1000);
 			
 			return false;
 		});
@@ -169,7 +169,7 @@
 </nav>
 
 <div class="modal fade" id="graphy" tabindex="-1" role="dialog">
-  <div class="modal-dialog" style="width:100%">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
