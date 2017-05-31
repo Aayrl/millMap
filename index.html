@@ -26,10 +26,10 @@
 	
 	<script>
 	
-	var chart;
-	
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(drawChart);
+	
+	var chart;
 	
 	function drawChart() {
 		var queryString = encodeURIComponent('select A, count(A) group by A');
@@ -136,7 +136,7 @@
 			sscol = "A";
 			sscol = $(this).attr('data-sscol');
 			
-			var data;
+			var newdata;
 			
 			function redrawChart(sscol) {
 				var queryString = encodeURIComponent('select ' + sscol + ', count(' + sscol + ') group by ' + sscol);
@@ -152,7 +152,7 @@
 					return;
 				}
 
-				var data = response.getDataTable();
+				var newdata = response.getDataTable();
 				chart.draw(data, { height: 400 });
 			}
 			
