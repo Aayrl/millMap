@@ -30,9 +30,9 @@
 	google.charts.setOnLoadCallback(drawChart);
 	
 	var chart;
-	
-	function drawChart() {
-		var queryString = encodeURIComponent('select A, count(A) group by A');
+
+	function drawChart(sscol = "A") {
+		var queryString = encodeURIComponent('select ' + sscol + ', count(' + sscol + ') group by ' + sscol);
 
 		var query = new google.visualization.Query(
 			'https://docs.google.com/spreadsheets/d/1bvvbsOUUhcY4ICDN1-cJb3fdD5cakGIfzxTZT7gXMzM/gviz/tq?gid=954448862&headers=1&tq=' + queryString);
@@ -49,6 +49,7 @@
 		chart = new google.visualization.PieChart(document.getElementById('graph-container'));
 		chart.draw(data, { height: 400 });
 	}
+	
 	
 	function getSpawnData(spawnID,spawn) {
 		var d = new Date();
@@ -136,27 +137,7 @@
 			sscol = "A";
 			sscol = $(this).attr('data-sscol');
 			
-			var newdata;
-			
-			function redrawChart(sscol) {
-				var queryString = encodeURIComponent('select ' + sscol + ', count(' + sscol + ') group by ' + sscol);
-
-				var query = new google.visualization.Query(
-					'https://docs.google.com/spreadsheets/d/1bvvbsOUUhcY4ICDN1-cJb3fdD5cakGIfzxTZT7gXMzM/gviz/tq?gid=954448862&headers=1&tq=' + queryString);
-				query.send(rehandleQueryResponse);
-			}
-
-			function rehandleQueryResponse(response) {
-				if (response.isError()) {
-					alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-					return;
-				}
-
-				var newdata = response.getDataTable();
-				chart.draw(newdata, { height: 400 });
-			}
-			
-			redrawChart(sscol);
+			drawChart(sscol);
 			
 			$('#graph-title').html("Spawn Statistics for "+id);
 			$('#graphy').modal('show');
