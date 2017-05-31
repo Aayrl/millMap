@@ -20,12 +20,16 @@
 	.sdead {
 		color:#af0014;
 	}
+	#graph-container{text-align:center;}
 	</style>
 	
 	
 	<script>
 	
 	var chart;
+	
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
 	
 	function getSpawnData(spawnID,spawn) {
 		var d = new Date();
@@ -113,13 +117,8 @@
 			sscol = "A";
 			sscol = $(this).attr('data-sscol');
 			
-			
 			var data;
 			
-			google.charts.load('current', {'packages':['corechart']});
-			
-			google.charts.setOnLoadCallback(drawChart);
-
 			function drawChart() {
 				var queryString = encodeURIComponent('select ' + sscol + ', count(' + sscol + ') group by ' + sscol);
 
@@ -138,7 +137,6 @@
 				chart = new google.visualization.PieChart(document.getElementById('graph-container'));
 				chart.draw(data, { height: 400 });
 			}
-
 			
 			$('#graph-title').html("Spawn Statistics for "+id);
 			$('#graphy').modal('show');
