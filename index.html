@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 
 	<style>
@@ -107,7 +108,36 @@
 		$(".spawnGraph").on("click", function() {
 			id = 0;
 			id = $(this).attr('data-spawnPoint');
-			$('#graph-container').html(id);
+			
+			
+			var data;
+			var chart;
+
+			google.charts.load('current', {'packages':['corechart']});
+			
+			google.charts.setOnLoadCallback(drawChart);
+
+			function drawChart() {
+				var queryString = encodeURIComponent('select count(CMILL2)');
+
+				var query = new google.visualization.Query(
+					'https://docs.google.com/spreadsheets/d/1bvvbsOUUhcY4ICDN1-cJb3fdD5cakGIfzxTZT7gXMzM/gviz/tq?gid=954448862&headers=1&tq=' + queryString);
+				query.send(handleQueryResponse);
+			}
+
+			function handleQueryResponse(response) {
+				if (response.isError()) {
+					alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+					return;
+				}
+
+				var data = response.getDataTable();
+				var chart = new google.visualization.ColumnChart(document.getElementById('graph-container'));
+				chart.draw(data, { height: 400 });
+			}
+
+			
+			//$('#graph-container').html(id);
 			$('#graphy').modal('show');
 			return false;
 		});
@@ -177,7 +207,7 @@
 						<td><div id="s1"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s1">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -187,7 +217,7 @@
 						<td><div id="s2"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s2">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -197,7 +227,7 @@
 						<td><div id="s3"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s3">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -207,7 +237,7 @@
 						<td><div id="s4"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s4">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -217,7 +247,7 @@
 						<td><div id="s5"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s5">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -227,7 +257,7 @@
 						<td><div id="s6"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s6">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -237,7 +267,7 @@
 						<td><div id="s7"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s7">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -247,7 +277,7 @@
 						<td><div id="s8"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s8">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -257,7 +287,7 @@
 						<td><div id="s9"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s9">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -267,7 +297,7 @@
 						<td><div id="s10"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s10">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -277,7 +307,7 @@
 						<td><div id="s11"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s11">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -287,7 +317,7 @@
 						<td><div id="s12"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s12">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -297,7 +327,7 @@
 						<td><div id="s13"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s13">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -307,7 +337,7 @@
 						<td><div id="s14"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s14">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -317,7 +347,7 @@
 						<td><div id="s15"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s15">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -327,7 +357,7 @@
 						<td><div id="s16"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s16">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -337,7 +367,7 @@
 						<td><div id="s17"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s17">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -347,7 +377,7 @@
 						<td><div id="s18"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s18">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -357,7 +387,7 @@
 						<td><div id="s19"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s19">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
@@ -367,7 +397,7 @@
 						<td><div id="s20"></div></td>
 						<td>
 							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s20">
-								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+								<span class="glyphicon glyphicon-tasks"></span> Details 
 							</button>
 						</td>
 					</tr>
