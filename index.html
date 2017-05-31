@@ -24,6 +24,9 @@
 	
 	
 	<script>
+	
+	var chart;
+	
 	function getSpawnData(spawnID,spawn) {
 		var d = new Date();
 		var time = d.getMinutes();
@@ -104,14 +107,13 @@
 	$(document).ready(function(){
 		updateSpawnTimers();
 		
-		
 		$(".spawnGraph").on("click", function() {
 			id = 0;
 			id = $(this).attr('data-spawnPoint');
 			
 			
 			var data;
-			var chart;
+			
 
 			google.charts.load('current', {'packages':['corechart']});
 			
@@ -132,7 +134,7 @@
 				}
 
 				var data = response.getDataTable();
-				var chart = new google.visualization.PieChart(document.getElementById('graph-container'));
+				chart = new google.visualization.PieChart(document.getElementById('graph-container'));
 				chart.draw(data, { height: 400 });
 			}
 
