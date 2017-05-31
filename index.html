@@ -132,6 +132,7 @@
 		updateSpawnTimers();
 		
 		$(".spawnGraph").on("click", function() {
+			$('#graph-container').html();
 			id = 0;
 			id = $(this).attr('data-spawnPoint');
 			sscol = "A";
