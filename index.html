@@ -102,6 +102,16 @@
 
 	$(document).ready(function(){
 		updateSpawnTimers();
+		
+		
+		$(".spawnGraph").on("click", function() {
+			id = 0;
+			id = $(this).attr('data-spawnPoint');
+			$('#graph-container').html(id);
+			$('#graphy').modal('show');
+			return false;
+		});
+		
 	});
 	</script>
 </head>
@@ -124,6 +134,22 @@
 	</div>
 </nav>
 
+<div class="modal fade" id="graphy" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="preview"></h4>
+      </div>
+      <div class="modal-body" id="graph-container">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="jumbotron text-center">
   <h1>Mill Map</h1>
   <p>Mapping Pokemon Go Spawn Points for the Champlain Mill in Winooski, VT.</p> 
@@ -141,6 +167,7 @@
 						<th>Spawn Point</th>
 						<th>Spawn Minute Mark</th>
 						<th>Current Status</th>
+						<th>Spawn Statistics</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -148,101 +175,201 @@
 						<td>CMILL1</td>
 						<td>:45</td>
 						<td><div id="s1"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s1">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL2</td>
 						<td>:48</td>
 						<td><div id="s2"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s2">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL3</td>
 						<td>:52</td>
 						<td><div id="s3"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s3">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL4</td>
 						<td>:52</td>
 						<td><div id="s4"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s4">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL5</td>
 						<td>:57</td>
 						<td><div id="s5"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s5">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL6</td>
 						<td>:59</td>
 						<td><div id="s6"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s6">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL7</td>
 						<td>:01</td>
 						<td><div id="s7"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s7">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL8</td>
 						<td>:20</td>
 						<td><div id="s8"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s8">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL9</td>
 						<td>:22</td>
 						<td><div id="s9"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s9">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL10</td>
 						<td>:22</td>
 						<td><div id="s10"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s10">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL11</td>
 						<td>:55</td>
 						<td><div id="s11"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s11">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL12</td>
 						<td>:48</td>
 						<td><div id="s12"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s12">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL13</td>
 						<td>:32</td>
 						<td><div id="s13"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s13">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL14</td>
 						<td>:06</td>
 						<td><div id="s14"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s14">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL15</td>
 						<td>:56</td>
 						<td><div id="s15"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s15">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL16</td>
 						<td>:15</td>
 						<td><div id="s16"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s16">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL17</td>
 						<td>:13</td>
 						<td><div id="s17"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s17">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL18</td>
 						<td>:17</td>
 						<td><div id="s18"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s18">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL19</td>
 						<td>:34</td>
 						<td><div id="s19"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s19">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>CMILL20</td>
 						<td>:52</td>
 						<td><div id="s20"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="s20">
+								<span class="glyphicon glyphicon-tasks"></span> Click for Details 
+							</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
