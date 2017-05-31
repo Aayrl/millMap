@@ -138,15 +138,15 @@
 			
 			var data;
 			
-			function drawChart() {
+			function redrawChart(sscol) {
 				var queryString = encodeURIComponent('select ' + sscol + ', count(' + sscol + ') group by ' + sscol);
 
 				var query = new google.visualization.Query(
 					'https://docs.google.com/spreadsheets/d/1bvvbsOUUhcY4ICDN1-cJb3fdD5cakGIfzxTZT7gXMzM/gviz/tq?gid=954448862&headers=1&tq=' + queryString);
-				query.send(handleQueryResponse);
+				query.send(rehandleQueryResponse);
 			}
 
-			function handleQueryResponse(response) {
+			function rehandleQueryResponse(response) {
 				if (response.isError()) {
 					alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
 					return;
@@ -155,6 +155,8 @@
 				var data = response.getDataTable();
 				chart.draw(data, { height: 400 });
 			}
+			
+			redrawChart(sscol);
 			
 			$('#graph-title').html("Spawn Statistics for "+id);
 			$('#graphy').modal('show');
