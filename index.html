@@ -132,7 +132,7 @@
 				}
 
 				var data = response.getDataTable();
-				var chart = new google.visualization.ColumnChart(document.getElementById('graph-container'));
+				var chart = new google.visualization.PieChart(document.getElementById('graph-container'));
 				chart.draw(data, { height: 400 });
 			}
 
