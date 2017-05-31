@@ -138,10 +138,11 @@
 			sscol = "A";
 			sscol = $(this).attr('data-sscol');
 			
-			drawChart(sscol);
-			
 			$('#graph-title').html("Spawn Statistics for "+id);
 			$('#graphy').modal('show');
+			
+			drawChart(sscol);
+			
 			return false;
 		});
 		
