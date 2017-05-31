@@ -118,7 +118,7 @@
 			google.charts.setOnLoadCallback(drawChart);
 
 			function drawChart() {
-				var queryString = encodeURIComponent('select count(CMILL2)');
+				var queryString = encodeURIComponent('select CMILL2, count(CMILL2)');
 
 				var query = new google.visualization.Query(
 					'https://docs.google.com/spreadsheets/d/1bvvbsOUUhcY4ICDN1-cJb3fdD5cakGIfzxTZT7gXMzM/gviz/tq?gid=954448862&headers=1&tq=' + queryString);
