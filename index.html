@@ -31,6 +31,25 @@
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(drawChart);
 	
+	function drawChart() {
+		var queryString = encodeURIComponent('select A, count(A) group by A');
+
+		var query = new google.visualization.Query(
+			'https://docs.google.com/spreadsheets/d/1bvvbsOUUhcY4ICDN1-cJb3fdD5cakGIfzxTZT7gXMzM/gviz/tq?gid=954448862&headers=1&tq=' + queryString);
+		query.send(handleQueryResponse);
+	}
+
+	function handleQueryResponse(response) {
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+
+		var data = response.getDataTable();
+		chart = new google.visualization.PieChart(document.getElementById('graph-container'));
+		chart.draw(data, { height: 400 });
+	}
+	
 	function getSpawnData(spawnID,spawn) {
 		var d = new Date();
 		var time = d.getMinutes();
@@ -134,7 +153,6 @@
 				}
 
 				var data = response.getDataTable();
-				chart = new google.visualization.PieChart(document.getElementById('graph-container'));
 				chart.draw(data, { height: 400 });
 			}
 			
