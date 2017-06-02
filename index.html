@@ -48,7 +48,7 @@
 
 		var data = response.getDataTable();
 		var chart = new google.visualization.PieChart(document.getElementById('graph-container'));
-		var options = { height: 400, width: 568, pieSliceText: "label", legend: {position: 'none'} }
+		var options = { height: 400, width: 568, pieSliceText: "label", legend: {position: 'labeled'} }
 		chart.draw(data, options);
 	}
 	
