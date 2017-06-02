@@ -47,11 +47,8 @@
 		}
 
 		var data = response.getDataTable();
-		
-		var container = document.getElementById('graph-container');
-		container.style.display = 'block';
-		var chart = new google.visualization.PieChart(container);
-		chart.draw(data, { height: 400 });
+		var chart = new google.visualization.PieChart(document.getElementById('graph-container'));
+		chart.draw(data, { height: 400, width: 400 });
 	}
 	
 	function getSpawnData(spawnID,spawn) {
@@ -143,7 +140,7 @@
 			$('#graph-title').html("Spawn Statistics for "+id);
 			$('#graphy').modal('show');
 			
-			setTimeout(drawChart(sscol),1000);
+			drawChart(sscol);
 			
 			return false;
 		});
