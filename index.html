@@ -48,7 +48,8 @@
 
 		var data = response.getDataTable();
 		var chart = new google.visualization.PieChart(document.getElementById('graph-container'));
-		chart.draw(data, { height: 400, width: 400 });
+		var options = { height: 400, width: 568 }
+		chart.draw(data, options);
 	}
 	
 	function getSpawnData(spawnID,spawn) {
