@@ -47,8 +47,14 @@
 		}
 
 		var data = response.getDataTable();
-		var chart = new google.visualization.PieChart(document.getElementById('graph-container'));
-		chart.draw(data, { height: 400, width: 500 });
+		
+		var container = document.getElementById('graph-container');
+		container.style.display = 'block';
+		var chart = new google.visualization.PieChart(container);
+		google.visualization.events.addListener(chart, 'ready', function () {
+			container.style.display = 'none';
+		});
+		chart.draw(data, { height: 400 });
 	}
 	
 	function getSpawnData(spawnID,spawn) {
