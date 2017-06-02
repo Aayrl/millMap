@@ -34,7 +34,11 @@
 	
 	//google.charts.setOnLoadCallback(drawChart);
 	
-	google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
+	//google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
+	
+	$('body').one('shown.bs.modal', '#modal', function(){
+		google.load('visualization', '1.1', {'packages':['corechart'], "callback": drawChart});
+	}); 
 
 	function drawChart(col = "A") {
 		var queryString = encodeURIComponent('select ' + col + ', count(' + col + ') group by ' + col);
