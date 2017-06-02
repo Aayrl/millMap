@@ -30,9 +30,11 @@
 	var chart;
 	var data;
 
-	google.charts.load('current', {'packages':['corechart']});
+	//google.charts.load('current', {'packages':['corechart']});
 	
-	google.charts.setOnLoadCallback(drawChart);
+	//google.charts.setOnLoadCallback(drawChart);
+	
+	google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
 
 	function drawChart(col = "A") {
 		var queryString = encodeURIComponent('select ' + col + ', count(' + col + ') group by ' + col);
