@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Mill Map</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script src="/js/bootstrap.min.js"></script>
+
+	<style>
+	.navbar{border-radius:0;}
+	.sactive {
+		color:#00af23;
+	}
+	.sready {
+		color:#ffb200;
+	}
+	.sdead {
+		color:#af0014;
+	}
+	#graph-container{text-align:center;}
+	</style>
+	
+	
+	<script>
+	
+	var chart;
+	var data;
+	
+	google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
+
+	function drawChart(col = "A") {
+		var queryString = encodeURIComponent('select ' + col + ', count(' + col + ') group by ' + col);
+
+		var query = new google.visualization.Query(
+			'https://docs.google.com/spreadsheets/d/1mBywWLhds9JZprwrA5OnAkHZL3rXOKPh0MizUTy_y_w/gviz/tq?gid=0&headers=1&tq=' + queryString);
+		query.send(handleQueryResponse);
+	}
+
+	function handleQueryResponse(response) {
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+			return;
+		}
+
+		var data = response.getDataTable();
+		var chart = new google.visualization.PieChart(document.getElementById('graph-container'));
+		var options = { height: 400, width: 568, pieSliceText: "value", pieHole: 0.4, legend: {position: 'right'} }
+		data.sort([{column: 1, desc: true}]);
+		chart.draw(data, options);
+	}
+	
+	function getSpawnData(spawnID,spawn) {
+		var d = new Date();
+		var time = d.getMinutes();
+		var result = "";
+		var timeleft = "";
+		
+		if (spawn < 30) {
+			if (((time - spawn) >= 0) && ((time - spawn) < 30)) {
+				result = "<span class='sactive'>SPAWN IS ACTIVE</span>";
+				timeleft = (30-(time-spawn)) + " minutes left";
+			} else {
+				if (time < 30) {
+					if (Math.abs(time - spawn) < 5) {
+						result = "<span class='sready'>SPAWNING SOON!</span>";
+					} else {
+						result = "<span class='sdead'>INACTIVE</span>";
+					}
+				} else {
+					if (Math.abs(time - spawn) >= 56) {
+						result = "<span class='sready'>SPAWNING SOON!</span>";
+					} else {
+						result = "<span class='sdead'>INACTIVE</span>";
+					}
+				}
+			}
+		} else {
+			if (time >= 30) {
+				if ((time-spawn)>=0 && (time-spawn)<30) {
+					result = "<span class='sactive'>SPAWN IS ACTIVE</span>";
+					timeleft = (30-(time-spawn)) + " minutes left";
+				} else {
+					if (Math.abs(time - spawn) < 5) {
+						result = "<span class='sready'>SPAWNING SOON!</span>";
+					} else {
+						result = "<span class='sdead'>INACTIVE</span>";
+					}
+				}
+			} else {
+				if (((spawn-30)-time) >= 0) {
+					result = "<span class='sactive'>SPAWN IS ACTIVE</span>";
+					timeleft = (spawn-30-time) + " minutes left";
+				} else {
+					if (Math.abs((spawn-30)-time) >= 26) {
+						result = "<span class='sready'>SPAWNING SOON!</span>";
+					} else {
+						result = "<span class='sdead'>INACTIVE</span>";
+					}
+				}
+			}
+		}
+		return result + " <br /> " + timeleft;
+	}
+
+	function updateSpawnTimers() {
+		$("#s1").html(getSpawnData("#s1",28));
+		$("#s2").html(getSpawnData("#s2",30));
+		$("#s3").html(getSpawnData("#s3",31));
+		setTimeout(updateSpawnTimers, 5000);
+	}
+
+	$(document).ready(function(){
+		updateSpawnTimers();
+		
+		$(".spawnGraph").on("click", function() {
+			id = 0;
+			id = $(this).attr('data-spawnPoint');
+			sscol = "A";
+			sscol = $(this).attr('data-sscol');
+			
+			$('#graph-title').html("Spawn Statistics for "+id);
+			$('#graphy').modal('show');
+			
+			drawChart(sscol);
+			
+			return false;
+		});
+		
+	});
+	</script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">Aayrl</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="https://aayrl.github.io/" target="_blank" rel="noopener noreferrer">Home</a></li>
+			<li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="https://aayrl.github.io/historicalDex/" target="_blank" rel="noopener noreferrer">Historical Dex</a></li>
+					<li class="active"><a href="#">Mill Map</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<div class="modal fade" id="graphy" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="graph-title"></h4>
+      </div>
+      <div class="modal-body" id="graph-container">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="jumbotron text-center">
+  <h1>Church and King Street Map</h1>
+  <p>Mapping Pokemon Go Spawn Points at Church and King Street in Burlington, VT.</p> 
+</div>
+  
+<div class="container">
+	<div class="row" id="main">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align:center;margin-bottom:2em;">
+			<img class="img-rounded" src="./img/cking_spawn.png" alt="map">
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Spawn Point</th>
+						<th>Spawn Minute Mark</th>
+						<th>Current Status</th>
+						<th>Spawn Statistics</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>CKING1</td>
+						<td>:28</td>
+						<td><div id="s1"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="CKING1" data-sscol="A">
+								<span class="glyphicon glyphicon-tasks"></span> Details 
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td>CKING2</td>
+						<td>:30</td>
+						<td><div id="s2"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="CKING2" data-sscol="B">
+								<span class="glyphicon glyphicon-tasks"></span> Details 
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td>CKING3</td>
+						<td>:31</td>
+						<td><div id="s3"></div></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm spawnGraph" data-spawnPoint="CKING3" data-sscol="C">
+								<span class="glyphicon glyphicon-tasks"></span> Details 
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
